@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ผังองค์กรห้องเรียน ม.5/2 - โรงเรียนประทีปวิทยา</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Kanit) -->
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Kanit', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+        }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glass-card-interactive {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .glass-card-interactive:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px -10px rgba(56, 189, 248, 0.3);
+            border-color: rgba(56, 189, 248, 0.5);
+        }
+        .tree-line-v {
+            width: 2px;
+            background: linear-gradient(to bottom, #38bdf8, #818cf8);
+            margin: 0 auto;
+        }
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; color: black !important; }
+            .glass-panel { background: white !important; border: 1px solid #ccc !important; }
+            .print-border { border: 1px solid #333 !important; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 flex flex-col items-center">
+
+    <!-- Header Section -->
+    <header class="w-full max-w-5xl text-center mb-8">
+        <div class="glass-panel rounded-3xl p-6 shadow-2xl relative overflow-hidden">
+            <div class="absolute -top-10 -left-10 w-40 h-40 bg-sky-500/20 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-amber-500/20 rounded-full blur-3xl"></div>
+            
+            <h1 class="text-3xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-amber-300 to-sky-200 mb-2">
+                ผังองค์กรห้องเรียน ม.5/2
+            </h1>
+            <p class="text-sky-200/80 text-lg md:text-xl font-medium">
+                โรงเรียนประทีปวิทยา | Prateep Witthaya School
+            </p>
+
+            <!-- Action Controls -->
+            <div class="mt-6 flex flex-wrap justify-center items-center gap-4 no-print">
+                <div class="relative w-full max-w-xs">
+                    <input type="text" id="searchInput" onkeyup="filterCards()" placeholder="ค้นหารายชื่อสมาชิก..." 
+                           class="w-full pl-10 pr-4 py-2 bg-slate-900/80 border border-sky-500/30 rounded-full text-sm text-white placeholder-slate-400 focus:outline-none focus:border-sky-400">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
+                </div>
+                <button onclick="window.print()" class="px-5 py-2 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white rounded-full text-sm font-semibold shadow-lg transition duration-300 flex items-center gap-2">
+                    <i class="fa-solid fa-print"></i> พิมพ์เอกสาร / PDF
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Organizational Chart Tree Structure -->
+    <main class="w-full max-w-5xl space-y-6">
+
+        <!-- Level 1: Advisor Teacher -->
+        <section class="flex flex-col items-center">
+            <div class="w-full max-w-sm member-card" data-name="ครูประจำชั้น ม.5/2">
+                <div onclick="openModal('teacher')" class="glass-panel glass-card-interactive border-2 border-amber-400/80 rounded-2xl p-5 text-center relative group print-border">
+                    <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold px-4 py-0.5 rounded-full text-xs shadow-md border border-amber-300">
+                        <i class="fa-solid fa-chalkboard-user mr-1"></i> ครูประจำชั้น
+                    </span>
+                    <!-- รูปโปรไฟล์ครู -->
+                    <div class="relative w-24 h-24 mx-auto mt-2 mb-3 rounded-2xl border-2 border-amber-400 shadow-md overflow-hidden bg-slate-900 group-hover:scale-105 transition duration-300">
+                        <img src="images/teacher.jpg" alt="ครูประจำชั้น" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold text-white">ครูประจำชั้น ม.5/2</h3>
+                    <p class="text-amber-300 text-sm font-medium">ที่ปรึกษาประจำห้องเรียน</p>
+                </div>
+            </div>
+            <div class="tree-line-v h-10"></div>
+        </section>
+
+        <!-- Level 2: Executive Committee (President & Vice President) -->
+        <section class="flex flex-col items-center">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10 w-full px-2">
+                
+                <!-- President -->
+                <div class="member-card" data-name="ฟิตรี อาแว ฟิต หัวหน้าห้อง">
+                    <div onclick="openModal('fitree')" class="glass-panel glass-card-interactive border-2 border-sky-400/80 rounded-2xl p-5 text-center relative group print-border">
+                        <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-sky-500 to-blue-600 text-white font-bold px-4 py-0.5 rounded-full text-xs shadow-md border border-sky-300/40">
+                            <i class="fa-solid fa-star text-amber-300 mr-1"></i> หัวหน้าห้อง
+                        </span>
+                        <!-- รูปโปรไฟล์ ฟิตรี -->
+                        <div class="relative w-24 h-24 mx-auto mt-2 mb-3 rounded-2xl border-2 border-sky-400 shadow-md overflow-hidden bg-slate-900 group-hover:scale-105 transition duration-300">
+                            <img src="images/fitri.jpg" alt="นายฟิตรี อาแว" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="text-lg font-bold text-white">นายฟิตรี อาแว</h4>
+                        <span class="inline-block mt-0.5 text-xs text-sky-300 font-medium">ชื่อเล่น: ฟิต</span>
+                    </div>
+                </div>
+
+                <!-- Vice President -->
+                <div class="member-card" data-name="เจะอิมรอน หะยีบุละ อิมรอน รองหัวหน้าห้อง">
+                    <div onclick="openModal('imron')" class="glass-panel glass-card-interactive border-2 border-sky-400/80 rounded-2xl p-5 text-center relative group print-border">
+                        <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-sky-500 to-blue-600 text-white font-bold px-4 py-0.5 rounded-full text-xs shadow-md border border-sky-300/40">
+                            <i class="fa-solid fa-user-shield text-amber-300 mr-1"></i> รองหัวหน้าห้อง
+                        </span>
+                        <!-- รูปโปรไฟล์ เจะอิมรอน -->
+                        <div class="relative w-24 h-24 mx-auto mt-2 mb-3 rounded-2xl border-2 border-sky-400 shadow-md overflow-hidden bg-slate-900 group-hover:scale-105 transition duration-300">
+                            <img src="images/imron.jpg" alt="นายเจะอิมรอน หะยีบุละ" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="text-lg font-bold text-white">นายเจะอิมรอน หะยีบุละ</h4>
+                        <span class="inline-block mt-0.5 text-xs text-sky-300 font-medium">ชื่อเล่น: อิมรอน</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="tree-line-v h-10"></div>
+        </section>
+
+        <!-- Level 3: Members Section -->
+        <section class="glass-panel rounded-3xl p-6 print-border">
+            <h3 class="text-center text-lg font-bold text-sky-300 mb-6 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-users"></i> สมาชิกประจำห้องเรียน ม.5/2
+            </h3>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4" id="membersGrid">
+                
+                <!-- Student 1: อับดุลสลาม -->
+                <div class="member-card" data-name="อับดุลสลาม แวเกะจิ สลาม">
+                    <div onclick="openModal('salam')" class="glass-panel glass-card-interactive rounded-2xl p-4 text-center group print-border relative">
+                        <div class="relative w-20 h-20 mx-auto mb-3 rounded-xl border border-sky-400/40 shadow-md overflow-hidden bg-slate-900 group-hover:scale-105 transition duration-300">
+                            <img src="images/salam.jpg" alt="นายอับดุลสลาม แวเกะจิ" class="w-full h-full object-cover">
+                        </div>
+                        <h5 class="font-bold text-white text-base">นายอับดุลสลาม แวเกะจิ</h5>
+                        <span class="inline-block text-xs text-sky-300 font-medium">ชื่อเล่น: สลาม</span>
+                    </div>
+                </div>
+
+                <!-- Student 2: ชามีน -->
+                <div class="member-card" data-name="ชามีน ดีกาซอ ชามีน">
+                    <div onclick="openModal('chameen')" class="glass-panel glass-card-interactive rounded-2xl p-4 text-center group print-border relative">
+                        <div class="relative w-20 h-20 mx-auto mb-3 rounded-xl border border-sky-400/40 shadow-md overflow-hidden bg-slate-900 group-hover:scale-105 transition duration-300">
+                            <img src="images/chameen.jpg" alt="นายชามีน ดีกาซอ" class="w-full h-full object-cover">
+                        </div>
+                        <h5 class="font-bold text-white text-base">นายชามีน ดีกาซอ</h5>
+                        <span class="inline-block text-xs text-sky-300 font-medium">ชื่อเล่น: ชามีน</span>
+                    </div>
+                </div>
+
+                <!-- Student 3: มุสลิม -->
+                <div class="member-card" data-name="มุสลิม ดอมะ นุ">
+                    <div onclick="openModal('muslim')" class="glass-panel glass-card-interactive rounded-2xl p-4 text-center group print-border relative">
+                        <div class="relative w-20 h-20 mx-auto mb-3 rounded-xl border border-sky-400/40 shadow-md overflow-hidden bg-slate-900 group-hover:scale-105 transition duration-300">
+                            <img src="images/muslim.jpg" alt="นายมุสลิม ดอมะ" class="w-full h-full object-cover">
+                        </div>
+                        <h5 class="font-bold text-white text-base">นายมุสลิม ดอมะ</h5>
+                        <span class="inline-block text-xs text-sky-300 font-medium">ชื่อเล่น: นุ</span>
+                    </div>
+                </div>
+
+                <!-- Student 4: ฮุซัยฟีซัน -->
+                <div class="member-card" data-name="ฮุซัยฟีซัน สาแม ฟีซัน">
+                    <div onclick="openModal('huzafisan')" class="glass-panel glass-card-interactive rounded-2xl p-4 text-center group print-border relative">
+                        <div class="relative w-20 h-20 mx-auto mb-3 rounded-xl border border-sky-400/40 shadow-md overflow-hidden bg-slate-900 group-hover:scale-105 transition duration-300">
+                            <img src="images/huzafisan.jpg" alt="นายฮุซัยฟีซัน สาแม" class="w-full h-full object-cover">
+                        </div>
+                        <h5 class="font-bold text-white text-base">นายฮุซัยฟีซัน สาแม</h5>
+                        <span class="inline-block text-xs text-sky-300 font-medium">ชื่อเล่น: ฟีซัน</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-12 text-center text-slate-400 text-sm no-print">
+        <p>© 2026 มัธยมศึกษาปีที่ 5/2 | โรงเรียนประทีปวิทยา</p>
+    </footer>
+
+    <!-- Interactive Profile Modal -->
+    <div id="profileModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="glass-panel w-full max-w-md rounded-3xl p-6 relative shadow-2xl border border-sky-500/30 animate-fadeIn">
+            <!-- Close Button -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white w-8 h-8 rounded-full bg-slate-800/60 flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <!-- Modal Body Content -->
+            <div class="text-center mt-2">
+                <div class="relative w-28 h-28 mx-auto mb-4 rounded-2xl border-2 border-sky-400 shadow-lg overflow-hidden bg-slate-900">
+                    <img id="modalAvatar" src="" alt="Profile Avatar" class="w-full h-full object-cover">
+                </div>
+                <h3 id="modalName" class="text-2xl font-bold text-white"></h3>
+                <p id="modalRole" class="text-sky-300 font-medium text-sm mt-1"></p>
+
+                <div class="mt-6 text-left space-y-3 bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 text-sm">
+                    <div>
+                        <span class="text-slate-400 block text-xs">ชื่อเล่น</span>
+                        <span id="modalNickname" class="text-slate-200 font-semibold"></span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block text-xs">คติประจำใจ / งานอดิเรก</span>
+                        <span id="modalBio" class="text-slate-200 font-medium"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Database สำหรับแสดงข้อมูลใน Modal Popup
+        const memberDb = {
+            teacher: {
+                name: "ครูประจำชั้น ม.5/2",
+                role: "ที่ปรึกษาประจำห้องเรียน",
+                nickname: "ครูประจำชั้น",
+                avatar: "images/teacher.jpg",
+                bio: "มุ่งมั่นพัฒนาผู้เรียนให้มีความรู้ คู่คุณธรรม"
+            },
+            fitree: {
+                name: "นายฟิตรี อาแว",
+                role: "หัวหน้าห้อง ม.5/2",
+                nickname: "ฟิต",
+                avatar: "images/fitri.jpg",
+                bio: "ผู้นำกิจกรรม และนักกีฬาประจำห้องเรียน"
+            },
+            imron: {
+                name: "นายเچهอิมรอน หะยีบุละ",
+                role: "รองหัวหน้าห้อง ม.5/2",
+                nickname: "อิมรอน",
+                avatar: "images/imron.jpg",
+                bio: "ช่วยดูแลความเรียบร้อยและระเบียบวินัยในห้องเรียน"
+            },
+            salam: {
+                name: "นายอับดุลสลาม แวเกะจิ",
+                role: "สมาชิกนักเรียน ม.5/2",
+                nickname: "สลาม",
+                avatar: "images/salam.jpg",
+                bio: "ตั้งใจเรียน มุ่งมั่นพัฒนาตนเอง"
+            },
+            chameen: {
+                name: "นายชามีน ดีกาซอ",
+                role: "สมาชิกนักเรียน ม.5/2",
+                nickname: "ชามีน",
+                avatar: "images/chameen.jpg",
+                bio: "ชอบทำกิจกรรมและช่วยเหลือเพื่อนๆ"
+            },
+            muslim: {
+                name: "นายมุสลิม ดอมะ",
+                role: "สมาชิกนักเรียน ม.5/2",
+                nickname: "นุ",
+                avatar: "images/muslim.jpg",
+                bio: "อารมณ์ดี สร้างรอยยิ้มให้เพื่อนในห้อง"
+            },
+            huzafisan: {
+                name: "นายฮุซัยฟีซัน สาแม",
+                role: "สมาชิกนักเรียน ม.5/2",
+                nickname: "ฟีซัน",
+                avatar: "images/huzafisan.jpg",
+                bio: "เน้นการเรียนรู้ร่วมกับเพื่อนๆ"
+            }
+        };
+
+        // ฟังก์ชันเปิด Modal Popup
+        function openModal(key) {
+            const data = memberDb[key];
+            if (!data) return;
+
+            document.getElementById('modalAvatar').src = data.avatar;
+            document.getElementById('modalName').innerText = data.name;
+            document.getElementById('modalRole').innerText = data.role;
+            document.getElementById('modalNickname').innerText = data.nickname;
+            document.getElementById('modalBio').innerText = data.bio;
+
+            document.getElementById('profileModal').classList.remove('hidden');
+        }
+
+        // ฟังก์ชันปิด Modal Popup
+        function closeModal() {
+            document.getElementById('profileModal').classList.add('hidden');
+        }
+
+        // ปิด Modal เมื่อกดพื้นที่ว่างภายนอก
+        window.onclick = function(event) {
+            const modal = document.getElementById('profileModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
+
+        // ฟังก์ชันค้นหารายชื่อแบบเรียลไทม์
+        function filterCards() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.member-card');
+
+            cards.forEach(card => {
+                const searchData = card.getAttribute('data-name').toLowerCase();
+                if (searchData.includes(input)) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+    </script>
+</body>
+</html>
